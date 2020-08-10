@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2020 Magnus Lundin <magnus.lundin@hey.com> -->
+<component type="desktop">
+    <id>com.github.magnuslundin.taskman</id>
+    <metadata_license>CC0</metadata_license>
+    <name>TaskMan</name>
+    <summary>Yet another todo app.</summary>
+    <description>
+        <p>An app to fiddle with Vala and Elementary OS app development.</p>
+    </description>
+</component>

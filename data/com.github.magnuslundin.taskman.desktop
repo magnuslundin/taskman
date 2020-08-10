@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=TaskMan
+GenericName=TaskMan App
+Comment=Yet another todo app
+Categories=Utility;
+Exec=com.github.magnuslundin.taskman
+Icon=application-default-icon
+Terminal=false
+Type=Application
+Keywords=Todo;
