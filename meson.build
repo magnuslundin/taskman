@@ -3,6 +3,8 @@ project('com.github.magnuslundin.taskman', 'vala', 'c')
 executable(
     meson.project_name(),
     'src/Application.vala',
+    'src/Task.vala',
+    'src/TaskList.vala',
     dependencies: [
         dependency('gtk+-3.0')
     ],

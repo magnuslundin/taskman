@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2011-2018 Your Organization (https://yourwebsite.com)
+* Copyright (c) 2011-2018 Magnus Lundin (https://magnuslundin.se)
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -20,6 +20,9 @@
 */
 
 public class TaskMan : Gtk.Application {
+
+    private TaskList tasklist;
+
     public TaskMan () {
         Object (
             application_id: "com.github.magnuslundin.taskman",
@@ -32,6 +35,25 @@ public class TaskMan : Gtk.Application {
             default_width = 300,
             title = "TaskMan"
         };
+        var headerbar = new Gtk.HeaderBar () {
+            show_close_button = true
+        };
+        var add_button = new Gtk.Button.from_icon_name ("list-add", Gtk.IconSize.LARGE_TOOLBAR) {
+            action_name = "app.add-task"
+        };
+        headerbar.add (add_button);
+        main_window.set_titlebar (headerbar);
+
+        this.tasklist = new TaskList (main_window);
+        main_window.add (this.tasklist);
+
+        var add_task_action = new SimpleAction ("add-task", null);
+        add_action (add_task_action);
+        set_accels_for_action ("app.add-task", {"<Control>n"});
+        add_task_action.activate.connect (() => {
+            this.tasklist.add_task (new Task.with_data ("My first task", "", true));
+        });
+
         main_window.show_all ();
     }
     public static int main (string[] args) {
