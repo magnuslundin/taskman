@@ -57,7 +57,7 @@ public class TaskMan : Gtk.Application {
             var task = new Task.with_data ("Task #" + (tasklist.length ()+1).to_string (), "", false);
             task.task_deleted.connect ((s, t) => {
                 message ("Deleting task");
-                tasklist.remove (t);
+                tasklist.remove_task (t);
             });
             this.tasklist.add_task (task);
             message ("Adding task #" + tasklist.length ().to_string ());

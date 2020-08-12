@@ -21,8 +21,6 @@
 
 public class TaskList : Gtk.Grid {
 
-    public List<Task> tasks;
-
     public signal void tasklist_updated ();
 
     public TaskList () {
@@ -32,11 +30,13 @@ public class TaskList : Gtk.Grid {
         this.tasks = new List<Task> ();
     }
     public void add_task (Task task) {
-        this.tasks.append (task);
         this.attach (task, 0, this.length ());
         this.tasklist_updated ();
+    } 
+    public void remove_task (Task task) {
+        this.remove (task);
     }
     public int length () {
-        return (int)tasks.length ();
+        return (int)this.get_children().length ();
     }
 }
