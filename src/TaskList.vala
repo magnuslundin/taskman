@@ -21,19 +21,22 @@
 
 public class TaskList : Gtk.Grid {
 
-    private Gtk.ApplicationWindow main_window;
     public List<Task> tasks;
 
-    public TaskList (Gtk.ApplicationWindow main_window) {
-        this.main_window = main_window;
+    public signal void tasklist_updated ();
+
+    public TaskList () {
         this.column_spacing = 6;
         this.row_spacing = 6;
+        this.orientation = Gtk.Orientation.VERTICAL;
         this.tasks = new List<Task> ();
     }
     public void add_task (Task task) {
         this.tasks.append (task);
-        this.attach (task, 0, (int)this.tasks.length ());
-        main_window.show_all ();
-        message ("Adding task to position %d", (int)this.tasks.length ());
+        this.attach (task, 0, this.length ());
+        this.tasklist_updated ();
+    }
+    public int length () {
+        return (int)tasks.length ();
     }
 }

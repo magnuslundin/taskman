@@ -44,14 +44,23 @@ public class TaskMan : Gtk.Application {
         headerbar.add (add_button);
         main_window.set_titlebar (headerbar);
 
-        this.tasklist = new TaskList (main_window);
+        this.tasklist = new TaskList ();
+        this.tasklist.tasklist_updated.connect (() => {
+            main_window.show_all ();
+        });
         main_window.add (this.tasklist);
 
         var add_task_action = new SimpleAction ("add-task", null);
         add_action (add_task_action);
         set_accels_for_action ("app.add-task", {"<Control>n"});
         add_task_action.activate.connect (() => {
-            this.tasklist.add_task (new Task.with_data ("My first task", "", true));
+            var task = new Task.with_data ("Task #" + tasklist.length ().to_string (), "", false);
+            task.task_deleted.connect ((s, t) => {
+                message ("Deleting task");
+                tasklist.remove (t);
+            });
+            this.tasklist.add_task (task);
+            message ("Adding task #" + tasklist.length ().to_string ());
         });
 
         main_window.show_all ();

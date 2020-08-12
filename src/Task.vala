@@ -19,18 +19,34 @@
 * Authored by: Author <magnus.lundin@hey.com>
 */
 
-public class Task : Gtk.Label {
+public class Task : Gtk.Grid {
+
+    private Gtk.Label title_label;
+    private Gtk.Button delete_button;
+
+    public signal void task_deleted (Task t);
+
     public string title { 
-        get { return this.get_label (); } 
-        set { this.set_label (value); }
+        get { return this.title_label.get_label (); } 
+        set { this.title_label.set_label (value); }
     }
     public string description { get; set; }
     public bool completed { get; set; }
 
     public Task () {
-
+        this.column_spacing = 6;
+        this.title_label = new Gtk.Label ("");
+        this.delete_button = new Gtk.Button.from_icon_name ("list-remove", Gtk.IconSize.BUTTON);
+        this.delete_button.clicked.connect (() => {
+            this.completed = true;
+            this.delete_button.sensitive = false;
+            this.task_deleted (this);
+        });
+        this.attach (this.title_label, 0, 0);
+        this.attach (this.delete_button, 1, 0);
     }
     public Task.with_data (string title, string description, bool completed) {
+        this ();
         this.title = title;
         this.description = description;
         this.completed = completed;
