@@ -23,6 +23,7 @@ public class Task : Gtk.Grid {
 
     private Gtk.Label title_label;
     private Gtk.Button delete_button;
+    private Gtk.CheckButton finished_button;
 
     public signal void task_deleted (Task t);
 
@@ -35,15 +36,25 @@ public class Task : Gtk.Grid {
 
     public Task () {
         this.column_spacing = 6;
-        this.title_label = new Gtk.Label ("");
-        this.delete_button = new Gtk.Button.from_icon_name ("list-remove", Gtk.IconSize.BUTTON);
-        this.delete_button.clicked.connect (() => {
-            this.completed = true;
-            this.delete_button.sensitive = false;
-            this.task_deleted (this);
+        finished_button = new Gtk.CheckButton ();
+        title_label = new Gtk.Label ("");
+        title_label.width_chars = 30;
+        title_label.set_justify (Gtk.Justification.LEFT);
+        finished_button = new Gtk.CheckButton ();
+        finished_button.clicked.connect (() => {
+            delete_button.visible = !delete_button.visible;
         });
-        this.attach (this.title_label, 0, 0);
-        this.attach (this.delete_button, 1, 0);
+        delete_button = new Gtk.Button.from_icon_name ("list-remove", Gtk.IconSize.BUTTON);
+        delete_button.visible = false;
+        delete_button.no_show_all = true;
+        delete_button.clicked.connect (() => {
+            completed = true;
+            delete_button.sensitive = false;
+            task_deleted (this);
+        });
+        this.attach (this.finished_button,  0, 0, 1, 1);
+        this.attach (this.title_label,      1, 0, 9, 1);
+        this.attach (this.delete_button,    11, 0, 1, 1);
     }
     public Task.with_data (string title, string description, bool completed) {
         this ();

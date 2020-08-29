@@ -26,6 +26,7 @@ public class TaskList : Gtk.Grid {
     public TaskList () {
         this.column_spacing = 6;
         this.row_spacing = 6;
+        this.margin = 5;
         this.orientation = Gtk.Orientation.VERTICAL;
     }
     public void add_task (Task task) {
