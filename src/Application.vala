@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2020 Magnus Lundin (https://magnuslundin.se)
+* Copyright (c) 2020 Magnus Lundin (https://www.magnuslundin.se)
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
